@@ -1,50 +1,92 @@
-# React + TypeScript + Vite
+# CatLover <img src="./public/cat.svg" alt="Logo" width="36" height="36" style="vertical-align: middle; margin-left: 10px;" />
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application for **cat lovers**. Display cat images, mark them as favorites and check the breed info!
 
-Currently, two official plugins are available:
+## Images
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+https://drive.google.com/drive/folders/1Hk-IBP0zuDrCln5mtZLDH-mOTxQ7oaqS?usp=drive_link
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React
+- React Router
+- TypeScript
+- Vite
+- Axios
+- TanStack Query
+- Tailwind CSS
+- Material UI
 
-- Configure the top-level `parserOptions` property like this:
+## API
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Get your API key from [The Cat API](https://developers.thecatapi.com/), then set `VITE_CAT_API_KEY` inside the `.env` file.
+
+## Installation
+
+1. Clone the repo
+
+```sh
+git clone https://github.com/OrestisZinelis/cat-lover
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. Navigate to the project directory e.g.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```sh
+cd cat-lover
 ```
+
+3. Install dependencies
+
+```sh
+yarn
+```
+
+or
+
+```sh
+npm install
+```
+
+4. Create a `.env` file in the root directory and add your API key:
+
+`VITE_CAT_API_KEY=your_api_key_here`
+
+## Development
+
+Start the development server:
+
+```sh
+yarn dev
+```
+
+This will launch the app on http://localhost:5173
+
+## Build
+
+Build the project for production:
+
+```sh
+yarn build
+```
+
+This will generate the build files in the dist/ directory.
+
+## Linting
+
+Lint the project files using ESLint:
+
+```sh
+yarn lint
+```
+
+## Preview
+
+Preview the built project:
+
+```sh
+yarn preview
+```
+
+## License
+
+This project is licensed under the **MIT** License
