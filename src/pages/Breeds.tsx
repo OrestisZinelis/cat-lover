@@ -1,10 +1,19 @@
-import { useNavigate, Outlet } from 'react-router-dom'
-import { useGetBreeds } from '@src/hooks/queries/breed.queries.use'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Skeleton } from '@mui/material'
+import { useNavigate, Outlet } from "react-router-dom";
+import { useGetBreeds } from "@src/hooks/queries/breed.queries.use";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Skeleton,
+} from "@mui/material";
 
 export default function Breeds() {
-  const navigate = useNavigate()
-  const { data: breeds, isFetching } = useGetBreeds()
+  const navigate = useNavigate();
+  const { data: breeds, isFetching } = useGetBreeds();
 
   const skeleton = Array.from({ length: 10 }, (_, index) => (
     <TableRow key={index}>
@@ -24,12 +33,15 @@ export default function Breeds() {
         <Skeleton variant="text" width={100} />
       </TableCell>
     </TableRow>
-  ))
+  ));
 
   return (
     <div className="container mx-auto flex flex-col gap-8 p-4">
-      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer component={Paper} sx={{ maxHeight: 'calc(100vh - 200px)' }}>
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <TableContainer
+          component={Paper}
+          sx={{ maxHeight: "calc(100vh - 200px)" }}
+        >
           <Table stickyHeader sx={{ minWidth: 350 }} aria-label="breeds table">
             <TableHead>
               <TableRow>
@@ -43,7 +55,7 @@ export default function Breeds() {
             <TableBody>
               {isFetching
                 ? skeleton
-                : breeds?.map(breed => (
+                : breeds?.map((breed) => (
                     <TableRow
                       key={breed.id}
                       onClick={() => navigate(breed.id)}
@@ -53,7 +65,9 @@ export default function Breeds() {
                         {breed.name}
                       </TableCell>
                       <TableCell align="center">{breed.life_span}</TableCell>
-                      <TableCell align="center">{breed.weight.metric}</TableCell>
+                      <TableCell align="center">
+                        {breed.weight.metric}
+                      </TableCell>
                       <TableCell align="right">{breed.temperament}</TableCell>
                       <TableCell align="right">{breed.origin}</TableCell>
                     </TableRow>
@@ -64,5 +78,5 @@ export default function Breeds() {
       </Paper>
       <Outlet />
     </div>
-  )
+  );
 }

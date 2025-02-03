@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from 'react'
-import { useParams, useNavigate, Link, Outlet } from 'react-router-dom'
-import { useGetCatsByBreedId } from '@src/hooks/queries/cat.queries.use'
-import { useResponsiveImagesCols } from '@src/hooks/responsiveIimagesCols.use'
-import Close from '@mui/icons-material/Close'
-import SkeletonImages from './SkeletonImages'
+import { useState, useEffect, useCallback } from "react";
+import { useParams, useNavigate, Link, Outlet } from "react-router-dom";
+import { useGetCatsByBreedId } from "@src/hooks/queries/cat.queries.use";
+import { useResponsiveImagesCols } from "@src/hooks/responsiveIimagesCols.use";
+import Close from "@mui/icons-material/Close";
+import SkeletonImages from "./SkeletonImages";
 import {
   Button,
   IconButton,
@@ -14,39 +14,39 @@ import {
   CardActions,
   ImageList,
   ImageListItem,
-  CircularProgress
-} from '@mui/material'
+  CircularProgress,
+} from "@mui/material";
 
 export default function BreedModal({
-  showAlert
+  showAlert,
 }: {
-  readonly showAlert: (message: string, severity: 'success' | 'error') => void
+  readonly showAlert: (message: string, severity: "success" | "error") => void;
 }) {
-  const { breedId } = useParams()
-  const navigate = useNavigate()
+  const { breedId } = useParams();
+  const navigate = useNavigate();
   const {
     data: cats,
     isFetching: isFetchingCats,
     isError: isFetchingCatsError,
-    refetch: refetchCats
-  } = useGetCatsByBreedId(breedId ?? '')
-  const cols = useResponsiveImagesCols()
+    refetch: refetchCats,
+  } = useGetCatsByBreedId(breedId ?? "");
+  const cols = useResponsiveImagesCols();
 
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
 
-  const breed = cats?.[0]?.breeds[0]
+  const breed = cats?.[0]?.breeds[0];
 
   const handleClose = useCallback(() => {
-    setOpen(false)
-    navigate('/breeds')
-  }, [setOpen, navigate])
+    setOpen(false);
+    navigate("/breeds");
+  }, [setOpen, navigate]);
 
   useEffect(() => {
     if ((!breed || isFetchingCatsError) && !isFetchingCats) {
-      showAlert(`Failed to load cats for this breed`, 'error')
-      handleClose()
+      showAlert(`Failed to load cats for this breed`, "error");
+      handleClose();
     }
-  }, [breed, isFetchingCatsError, isFetchingCats, showAlert, handleClose])
+  }, [breed, isFetchingCatsError, isFetchingCats, showAlert, handleClose]);
 
   return (
     <>
@@ -79,7 +79,7 @@ export default function BreedModal({
                 {isFetchingCats ? (
                   <SkeletonImages height="5vh" />
                 ) : (
-                  (cats || []).map(cat => (
+                  (cats || []).map((cat) => (
                     <ImageListItem key={cat.id}>
                       <Link to={`./cats/${cat.id}`} relative="path">
                         <img src={cat.url} alt="Cat" loading="lazy" />
@@ -90,7 +90,11 @@ export default function BreedModal({
               </ImageList>
 
               <CardActions className="flex justify-center">
-                <Button variant="contained" color="secondary" onClick={() => refetchCats()}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => refetchCats()}
+                >
                   Load more
                 </Button>
               </CardActions>
@@ -100,5 +104,5 @@ export default function BreedModal({
       </Modal>
       <Outlet />
     </>
-  )
+  );
 }

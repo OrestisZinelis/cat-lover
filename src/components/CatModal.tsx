@@ -1,92 +1,115 @@
-import { useState, useEffect, useCallback } from 'react'
-import { useParams, useNavigate, useLocation, Link } from 'react-router-dom'
-import { useGetCatById } from '@src/hooks/queries/cat.queries.use'
+import { useState, useEffect, useCallback } from "react";
+import { useParams, useNavigate, useLocation, Link } from "react-router-dom";
+import { useGetCatById } from "@src/hooks/queries/cat.queries.use";
 import {
   useGetFavorites,
   useAddFavoriteMutation,
-  useRemoveFavoriteMutation
-} from '@src/hooks/queries/favorite.queries.use'
-import { Button, Tooltip, IconButton, Modal, Card, CardContent, CardActions, CircularProgress } from '@mui/material'
-import Close from '@mui/icons-material/Close'
-import Favorite from '@mui/icons-material/Favorite'
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
+  useRemoveFavoriteMutation,
+} from "@src/hooks/queries/favorite.queries.use";
+import {
+  Button,
+  Tooltip,
+  IconButton,
+  Modal,
+  Card,
+  CardContent,
+  CardActions,
+  CircularProgress,
+} from "@mui/material";
+import Close from "@mui/icons-material/Close";
+import Favorite from "@mui/icons-material/Favorite";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 
 export default function CatModal({
-  showAlert
+  showAlert,
 }: {
-  readonly showAlert: (message: string, severity: 'success' | 'error') => void
+  readonly showAlert: (message: string, severity: "success" | "error") => void;
 }) {
-  const { catId } = useParams()
-  const navigate = useNavigate()
-  const location = useLocation()
-  const { data: cat, isFetching: isFetchingCat, isError: isFetchingCatError } = useGetCatById(catId ?? '')
-  const { data: favorites, isFetching: isFetchingFavorites } = useGetFavorites()
-  const { mutateAsync: removeFavorite, isPending: isPendingRemoveFavorite } = useRemoveFavoriteMutation()
-  const { mutateAsync: addFavorite, isPending: isPendingAddFavorite } = useAddFavoriteMutation()
+  const { catId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const {
+    data: cat,
+    isFetching: isFetchingCat,
+    isError: isFetchingCatError,
+  } = useGetCatById(catId ?? "");
+  const { data: favorites, isFetching: isFetchingFavorites } =
+    useGetFavorites();
+  const { mutateAsync: removeFavorite, isPending: isPendingRemoveFavorite } =
+    useRemoveFavoriteMutation();
+  const { mutateAsync: addFavorite, isPending: isPendingAddFavorite } =
+    useAddFavoriteMutation();
 
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
 
   const navigateBack = useCallback(() => {
     if (location.pathname === `/cats/${catId}`) {
-      navigate('/cats')
+      navigate("/cats");
     } else {
-      navigate(-1)
+      navigate(-1);
     }
-  }, [location.pathname, catId, navigate])
+  }, [location.pathname, catId, navigate]);
 
   useEffect(() => {
     if ((!cat || isFetchingCatError) && !isFetchingCat) {
-      showAlert(`Failed to load cat`, 'error')
-      setOpen(false)
-      navigateBack()
+      showAlert(`Failed to load cat`, "error");
+      setOpen(false);
+      navigateBack();
     }
-  }, [cat, isFetchingCatError, isFetchingCat, showAlert, setOpen, navigateBack])
+  }, [
+    cat,
+    isFetchingCatError,
+    isFetchingCat,
+    showAlert,
+    setOpen,
+    navigateBack,
+  ]);
 
-  const isFetching = isFetchingCat || isFetchingFavorites
-  const isMutatingPending = isPendingRemoveFavorite || isPendingAddFavorite
+  const isFetching = isFetchingCat || isFetchingFavorites;
+  const isMutatingPending = isPendingRemoveFavorite || isPendingAddFavorite;
 
-  const isFavorite = favorites?.some(fav => fav.image_id === catId)
+  const isFavorite = favorites?.some((fav) => fav.image_id === catId);
 
   const handleAddFavorite = async () => {
     try {
-      await addFavorite(catId!)
-      showAlert('Added to favorites!', 'success')
+      await addFavorite(catId!);
+      showAlert("Added to favorites!", "success");
     } catch (error) {
-      showAlert('Failed to add favorite', 'error')
-      console.error(error)
+      showAlert("Failed to add favorite", "error");
+      console.error(error);
     }
-  }
+  };
 
   const handleRemoveFavorite = async () => {
     try {
-      const fav = favorites?.find(fav => fav.image_id === catId)
-      if (!fav) return
+      const fav = favorites?.find((fav) => fav.image_id === catId);
+      if (!fav) return;
 
-      await removeFavorite(fav.id)
-      showAlert('Removed from favorites!', 'success')
+      await removeFavorite(fav.id);
+      showAlert("Removed from favorites!", "success");
     } catch (error) {
-      showAlert('Failed to remove favorite', 'error')
-      console.error(error)
+      showAlert("Failed to remove favorite", "error");
+      console.error(error);
     }
-  }
+  };
 
   const handleCopyLink = async () => {
-    const baseUrl = window.location.origin
-    const fullUrl = `${baseUrl}/cats/${catId}`
+    const baseUrl = window.location.origin;
+    const fullUrl = `${baseUrl}/cats/${catId}`;
 
     try {
-      await navigator.clipboard.writeText(fullUrl)
-      showAlert('URL copied to clipboard!', 'success')
+      await navigator.clipboard.writeText(fullUrl);
+      showAlert("URL copied to clipboard!", "success");
     } catch (error) {
-      showAlert('Failed to copy URL.', 'error')
-      console.error(error)
+      showAlert("Failed to copy URL.", "error");
+      console.error(error);
     }
-  }
+  };
 
   const handleClose = () => {
-    setOpen(false)
-    navigateBack()
-  }
+    setOpen(false);
+    navigateBack();
+  };
 
   return (
     <Modal
@@ -107,7 +130,10 @@ export default function CatModal({
               {isFavorite ? (
                 <Tooltip title="Remove from favorites">
                   <span>
-                    <IconButton loading={isFetching || isMutatingPending} onClick={handleRemoveFavorite}>
+                    <IconButton
+                      loading={isFetching || isMutatingPending}
+                      onClick={handleRemoveFavorite}
+                    >
                       <Favorite color="error" />
                     </IconButton>
                   </span>
@@ -115,7 +141,10 @@ export default function CatModal({
               ) : (
                 <Tooltip title="Add to favorites">
                   <span>
-                    <IconButton loading={isFetching || isMutatingPending} onClick={handleAddFavorite}>
+                    <IconButton
+                      loading={isFetching || isMutatingPending}
+                      onClick={handleAddFavorite}
+                    >
                       <FavoriteBorder />
                     </IconButton>
                   </span>
@@ -131,14 +160,22 @@ export default function CatModal({
               </div>
             </div>
 
-            <img src={cat.url} alt={`cat-${cat.id}`} className="rounded max-h-[80vh] object-contain" />
+            <img
+              src={cat.url}
+              alt={`cat-${cat.id}`}
+              className="rounded max-h-[80vh] object-contain"
+            />
 
             {cat.breeds?.[0] && (
               <>
                 <Link to={`/breeds/${cat.breeds[0].id}`}>
-                  <h2 className="text-lg text-center font-bold">{cat.breeds[0].name}</h2>
+                  <h2 className="text-lg text-center font-bold">
+                    {cat.breeds[0].name}
+                  </h2>
                 </Link>
-                <p className="text-center text-gray-600">{cat.breeds[0].description}</p>
+                <p className="text-center text-gray-600">
+                  {cat.breeds[0].description}
+                </p>
               </>
             )}
 
@@ -149,5 +186,5 @@ export default function CatModal({
         )}
       </Card>
     </Modal>
-  )
+  );
 }
