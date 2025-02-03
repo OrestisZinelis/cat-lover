@@ -35,7 +35,7 @@ export default function App() {
     () => (message: string, severity: "success" | "error") => {
       setAlert({ open: true, message, severity });
     },
-    [setAlert],
+    [],
   );
 
   return (
