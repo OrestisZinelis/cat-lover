@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import { useGetBreeds } from "@src/hooks/queries/breed.queries.use";
+import { useGetBreeds } from "@hooks/queries/breed.queries.use";
 import {
   Table,
   TableBody,
@@ -11,15 +11,17 @@ import {
   Paper,
   Skeleton,
 } from "@mui/material";
-import type { AlertHandler } from "@src/types/Alert.types";
+import { useAlert } from "@hooks/alert.use";
 
-export default function Breeds({ showAlert }: AlertHandler) {
+export default function Breeds() {
   const navigate = useNavigate();
   const {
     data: breeds = [],
     isFetching: isFetchingBreeds,
     isError: isErrorFetchingBreeds,
   } = useGetBreeds();
+
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     if (isErrorFetchingBreeds) {

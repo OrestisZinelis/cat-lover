@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { useGetCats } from "@src/hooks/queries/cat.queries.use";
-import { useResponsiveImagesCols } from "@src/hooks/responsiveIimagesCols.use";
+import { useGetCats } from "@hooks/queries/cat.queries.use";
+import { useResponsiveImagesCols } from "@hooks/responsiveIimagesCols.use";
 import SkeletonImages from "@components/SkeletonImages";
 import {
   ImageList,
@@ -9,9 +9,9 @@ import {
   ImageListItemBar,
   Button,
 } from "@mui/material";
-import type { AlertHandler } from "@src/types/Alert.types";
+import { useAlert } from "@hooks/alert.use";
 
-export default function Cats({ showAlert }: AlertHandler) {
+export default function Cats() {
   const {
     data: cats = [],
     isFetching: isFetchingCats,
@@ -19,6 +19,7 @@ export default function Cats({ showAlert }: AlertHandler) {
     refetch: refetchCats,
   } = useGetCats();
   const cols = useResponsiveImagesCols();
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     if (isErrorFetchingCats) {

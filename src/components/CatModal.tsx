@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate, useLocation, Link } from "react-router-dom";
-import { useGetCatById } from "@src/hooks/queries/cat.queries.use";
+import { useGetCatById } from "@hooks/queries/cat.queries.use";
 import {
   useGetFavorites,
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
-} from "@src/hooks/queries/favorite.queries.use";
+} from "@hooks/queries/favorite.queries.use";
+import { useAlert } from "@hooks/alert.use";
 import {
   Button,
   Tooltip,
@@ -19,9 +20,8 @@ import {
 import Close from "@mui/icons-material/Close";
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import type { AlertHandler } from "@src/types/Alert.types";
 
-export default function CatModal({ showAlert }: AlertHandler) {
+export default function CatModal() {
   const { catId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,6 +36,8 @@ export default function CatModal({ showAlert }: AlertHandler) {
     useRemoveFavoriteMutation();
   const { mutateAsync: addFavorite, isPending: isPendingAddFavorite } =
     useAddFavoriteMutation();
+
+  const { showAlert } = useAlert();
 
   const [open, setOpen] = useState(true);
 

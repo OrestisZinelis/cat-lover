@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate, Link, Outlet } from "react-router-dom";
-import { useGetCatsByBreedId } from "@src/hooks/queries/cat.queries.use";
-import { useResponsiveImagesCols } from "@src/hooks/responsiveIimagesCols.use";
+import { useGetCatsByBreedId } from "@hooks/queries/cat.queries.use";
+import { useResponsiveImagesCols } from "@hooks/responsiveIimagesCols.use";
+import { useAlert } from "@hooks/alert.use";
 import Close from "@mui/icons-material/Close";
 import SkeletonImages from "./SkeletonImages";
 import {
@@ -16,9 +17,8 @@ import {
   ImageListItem,
   CircularProgress,
 } from "@mui/material";
-import type { AlertHandler } from "@src/types/Alert.types";
 
-export default function BreedModal({ showAlert }: AlertHandler) {
+export default function BreedModal() {
   const { breedId } = useParams();
   const navigate = useNavigate();
   const {
@@ -28,6 +28,8 @@ export default function BreedModal({ showAlert }: AlertHandler) {
     refetch: refetchCats,
   } = useGetCatsByBreedId(breedId ?? "");
   const cols = useResponsiveImagesCols();
+
+  const { showAlert } = useAlert();
 
   const [open, setOpen] = useState(true);
 

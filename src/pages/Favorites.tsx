@@ -1,17 +1,17 @@
+import { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import {
   useGetFavorites,
   useRemoveFavoriteMutation,
-} from "@src/hooks/queries/favorite.queries.use";
-import { useResponsiveImagesCols } from "@src/hooks/responsiveIimagesCols.use";
+} from "@hooks/queries/favorite.queries.use";
+import { useResponsiveImagesCols } from "@hooks/responsiveIimagesCols.use";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SkeletonImages from "@components/SkeletonImages";
 import { ImageList, ImageListItem, Tooltip } from "@mui/material";
 import type { Favorite } from "@src/types/api/Favorite.types";
-import type { AlertHandler } from "@src/types/Alert.types";
-import { useEffect } from "react";
+import { useAlert } from "@hooks/alert.use";
 
-export default function Favorites({ showAlert }: AlertHandler) {
+export default function Favorites() {
   const {
     data: favorites = [],
     isFetching: isFetchingFavorites,
@@ -19,6 +19,8 @@ export default function Favorites({ showAlert }: AlertHandler) {
   } = useGetFavorites();
   const removeFavoriteMutation = useRemoveFavoriteMutation();
   const cols = useResponsiveImagesCols();
+
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     if (isErrorFetchingFavorites) {
