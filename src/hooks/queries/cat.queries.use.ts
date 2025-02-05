@@ -15,6 +15,7 @@ export const useGetCatById = (id: string) =>
     queryKey: ["cat", id],
     queryFn: () => getCatById(id),
     retry: false,
+    refetchOnMount: false,
   });
 
 export const useGetCatsByBreedId = (breedId: string) =>
