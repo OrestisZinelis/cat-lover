@@ -16,12 +16,9 @@ import {
   ImageListItem,
   CircularProgress,
 } from "@mui/material";
+import type { AlertHandler } from "@src/types/Alert.types";
 
-export default function BreedModal({
-  showAlert,
-}: {
-  readonly showAlert: (message: string, severity: "success" | "error") => void;
-}) {
+export default function BreedModal({ showAlert }: AlertHandler) {
   const { breedId } = useParams();
   const navigate = useNavigate();
   const {

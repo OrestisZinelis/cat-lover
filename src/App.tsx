@@ -46,13 +46,13 @@ export default function App() {
           <div>
             <Routes>
               <Route path="/" element={<Navigate to="/cats" replace />} />
-              <Route path="/cats" element={<Cats />}>
+              <Route path="/cats" element={<Cats showAlert={showAlert} />}>
                 <Route
                   path=":catId"
                   element={<CatModal showAlert={showAlert} />}
                 />
               </Route>
-              <Route path="/breeds" element={<Breeds />}>
+              <Route path="/breeds" element={<Breeds showAlert={showAlert} />}>
                 <Route
                   path=":breedId"
                   element={<BreedModal showAlert={showAlert} />}

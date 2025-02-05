@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useGetCats } from "@src/hooks/queries/cat.queries.use";
 import { useResponsiveImagesCols } from "@src/hooks/responsiveIimagesCols.use";
@@ -8,10 +9,49 @@ import {
   ImageListItemBar,
   Button,
 } from "@mui/material";
+import type { AlertHandler } from "@src/types/Alert.types";
 
-export default function Cats() {
-  const { data: cats, isFetching, refetch } = useGetCats();
+export default function Cats({ showAlert }: AlertHandler) {
+  const {
+    data: cats = [],
+    isFetching: isFetchingCats,
+    isError: isErrorFetchingCats,
+    refetch: refetchCats,
+  } = useGetCats();
   const cols = useResponsiveImagesCols();
+
+  useEffect(() => {
+    if (isErrorFetchingCats) {
+      showAlert(`Failed to load cats`, "error");
+    }
+  }, [isErrorFetchingCats, showAlert]);
+
+  let catsContent;
+
+  if (isFetchingCats) {
+    catsContent = (
+      <ImageList variant="masonry" cols={cols} gap={8}>
+        <SkeletonImages />;
+      </ImageList>
+    );
+  } else if (!cats.length) {
+    catsContent = (
+      <div className="text-center text-gray-500">No cats available.</div>
+    );
+  } else {
+    catsContent = (
+      <ImageList variant="masonry" cols={cols} gap={8}>
+        {cats.map((cat) => (
+          <ImageListItem key={cat.id}>
+            <Link to={`${cat.id}`}>
+              <img src={cat.url} alt="Cat" loading="lazy" />
+              <ImageListItemBar position="bottom" title={cat.breeds[0].name} />
+            </Link>
+          </ImageListItem>
+        ))}
+      </ImageList>
+    );
+  }
 
   return (
     <div className="container mx-auto flex flex-col gap-8 p-4">
@@ -19,28 +59,12 @@ export default function Cats() {
         className="flex self-center"
         variant="contained"
         color="secondary"
-        loading={isFetching}
-        onClick={() => refetch()}
+        loading={isFetchingCats}
+        onClick={() => refetchCats()}
       >
         Load More
       </Button>
-      <ImageList variant="masonry" cols={cols} gap={8}>
-        {isFetching ? (
-          <SkeletonImages />
-        ) : (
-          (cats || []).map((cat) => (
-            <ImageListItem key={cat.id}>
-              <Link to={`${cat.id}`}>
-                <img src={cat.url} alt="Cat" loading="lazy" />
-                <ImageListItemBar
-                  position="bottom"
-                  title={cat?.breeds[0]?.name ?? ""}
-                />
-              </Link>
-            </ImageListItem>
-          ))
-        )}
-      </ImageList>
+      {catsContent}
       <Outlet />
     </div>
   );

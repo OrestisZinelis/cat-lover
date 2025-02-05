@@ -19,12 +19,9 @@ import {
 import Close from "@mui/icons-material/Close";
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import type { AlertHandler } from "@src/types/Alert.types";
 
-export default function CatModal({
-  showAlert,
-}: {
-  readonly showAlert: (message: string, severity: "success" | "error") => void;
-}) {
+export default function CatModal({ showAlert }: AlertHandler) {
   const { catId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
