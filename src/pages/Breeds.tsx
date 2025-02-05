@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import type { JSX } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useGetBreeds } from "@hooks/queries/breed.queries.use";
 import {
@@ -49,7 +50,7 @@ export default function Breeds() {
     </TableRow>
   ));
 
-  let breedsContent;
+  let breedsContent: JSX.Element[] | null;
 
   if (isFetchingBreeds) {
     breedsContent = skeleton;

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import type { JSX } from "react";
 import { Link, Outlet } from "react-router-dom";
 import {
   useGetFavorites,
@@ -46,20 +47,20 @@ export default function Favorites() {
     }
   };
 
-  let content;
+  let favoritesContent: JSX.Element | null;
 
   if (isFetchingFavorites) {
-    content = (
+    favoritesContent = (
       <ImageList variant="masonry" cols={cols} gap={8}>
         <SkeletonImages />;
       </ImageList>
     );
   } else if (!favorites.length) {
-    content = (
+    favoritesContent = (
       <div className="text-center text-gray-500">No favorites yet.</div>
     );
   } else {
-    content = (
+    favoritesContent = (
       <ImageList variant="masonry" cols={cols} gap={8}>
         {sortedFavorites.map((fav) => (
           <ImageListItem key={fav.id}>
@@ -81,7 +82,7 @@ export default function Favorites() {
 
   return (
     <div className="container mx-auto flex flex-col gap-8 p-4">
-      {content}
+      {favoritesContent}
       <Outlet />
     </div>
   );

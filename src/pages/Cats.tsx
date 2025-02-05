@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import type { JSX } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useGetCats } from "@hooks/queries/cat.queries.use";
 import { useResponsiveImagesCols } from "@hooks/responsiveIimagesCols.use";
@@ -27,7 +28,7 @@ export default function Cats() {
     }
   }, [isErrorFetchingCats, showAlert]);
 
-  let catsContent;
+  let catsContent: JSX.Element | null;
 
   if (isFetchingCats) {
     catsContent = (
