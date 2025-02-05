@@ -81,7 +81,7 @@ export default function BreedModal() {
                   (cats || []).map((cat) => (
                     <ImageListItem key={cat.id}>
                       <Link to={`./cats/${cat.id}`} relative="path">
-                        <img src={cat.url} alt="Cat" loading="lazy" />
+                        <img src={cat.url} alt="Cat" />
                       </Link>
                     </ImageListItem>
                   ))
