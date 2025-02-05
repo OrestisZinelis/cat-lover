@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getRandomCats, getCatById, getCatsByBreedId } from "@src/api/cat.api";
+import { getRandomCats, getCatById, getCatsByBreedId } from "@api/cat.api";
 
 export const useGetCats = () =>
   useQuery({

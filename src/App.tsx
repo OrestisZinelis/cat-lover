@@ -7,9 +7,9 @@ import {
 import { AlertProvider } from "@contexts/AlertProvider";
 import Cats from "@pages/Cats";
 import Breeds from "@pages/Breeds";
-import BreedModal from "@src/components/BreedModal";
+import BreedModal from "@components/BreedModal";
 import Favorites from "@pages/Favorites";
-import CatModal from "@src/components/CatModal";
+import CatModal from "@components/CatModal";
 import AppTopBar from "@layouts/AppTopBar";
 import type { Page } from "@src/types/Page.types";
 import { CssBaseline } from "@mui/material";
