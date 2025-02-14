@@ -1,32 +1,23 @@
-# GlobalWebIndex Engineering Challenge
-
-## Exercise: CatLover
-
-Create a React application for cat lovers which is going to build upon thecatapi.com and will have 3 views.
-The **first** view displays a list of 10 random cat images and a button to load more. Clicking on any of those images opens a modal view with the image and the information about the cat’s breed if available. This would be a link to the second view below - the breed detail. The modal should also contain a form to mark the image as your favourite (a part of the third view as well). Make sure you can copy-paste the URL of the modal and send it to your friends - they should see the same image as you can see.
-
-The **second** view displays a list of cat breeds. Each breed opens a modal again with a list of cat images of that breed. Each of those images must be a link to the image detail from the previous point.
-
-The **third** view allows you do the following things:
-
-- Display your favourite cats
-- Remove an image from your favourites (use any UX option you like)
-
-You can find the API documentation here: https://developers.thecatapi.com/
-We give you a lot of freedom in technologies and ways of doing things. We only insist on you using React.js. Get creative as much as you want, we WILL appreciate it. You will not be evaluated based on how well you follow these instructions, but based on how sensible your solution will be. In case you are not able to implement something you would normally implement for time reasons, make it clear with a comment.
-
-## Submission
-
-Once you have built your app, share your code in the mean suits you best
-Good luck, potential colleague!
-
 # CatLover <img src="./public/cat.svg" alt="Logo" width="36" height="36" style="vertical-align: middle; margin-left: 10px;" />
 
 A React application for **cat lovers**. Display cat images, mark them as favorites and check the breed info!
 
-## Images
+🎬
 
-https://drive.google.com/drive/folders/1Hk-IBP0zuDrCln5mtZLDH-mOTxQ7oaqS?usp=drive_link
+
+https://github.com/user-attachments/assets/5a67ee99-2633-45cc-8717-5aa429067373
+
+https://github.com/user-attachments/assets/960b3e09-ea18-43ff-b8df-75b4214e4f2e
+
+📷
+
+![CatLovers-Breed-Modal](https://github.com/user-attachments/assets/b5fb6524-24cc-4511-97d2-a95dda3d1192)
+![CatLovers-Breeds](https://github.com/user-attachments/assets/89172c30-1cf8-4f9e-85d8-e4a4c2c2259a)
+![CatLovers-Cat-Modal](https://github.com/user-attachments/assets/d9cde038-a4e5-4f66-a990-804cac3be90c)
+![CatLovers-Cats-Responsive](https://github.com/user-attachments/assets/23167914-6d58-4ec6-a64c-8b64c9c81be7)
+![CatLovers-Cats](https://github.com/user-attachments/assets/d6f6f4f2-6070-4215-bef3-651d0f0979f7)
+
+
 
 ## Tech Stack
 
